@@ -1,0 +1,9 @@
+#Dependencies
+/Backend/node_modules
+/Frontend/node_modules
+
+# production
+/Frontend/build
+
+#Documentation
+/requirements
