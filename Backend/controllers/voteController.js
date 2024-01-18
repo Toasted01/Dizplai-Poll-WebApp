@@ -11,7 +11,7 @@ const lockFilePath = path.join(__dirname, "../data/votes.lock"); //only exists i
 
 /**
  * Reads votes data from the file and returns it.
- * @returns {Array} - Array of votes
+ * @returns {Array|Object} - Array of votes
  */
 const getVotesFromFile = () => {
   try {
@@ -32,7 +32,7 @@ const getVotesFromFile = () => {
  * if false it will create the .lock file in order to lock the file for a user write
  *
  * called before writing to votes.json in voteController.postVote()
- * @returns boolean
+ * @returns {boolean}
  */
 const acquireFileLock = () => {
   if (fs.existsSync(lockFilePath)) {
