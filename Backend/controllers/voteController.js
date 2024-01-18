@@ -9,31 +9,17 @@ const path = require("path");
 const votesFilePath = path.join(__dirname, "../data/votes.json");
 const lockFilePath = path.join(__dirname, "../data/votes.lock"); //only exists if a user is writing to votes.json
 
-let cachedVotes = null; // Initialize a variable to cache votes data
-let lastModifiedTimestamp = null; // Initialize a variable to track the last modification timestamp
-
 /**
- * todo: check whether the timestamp and caching is necessary in this situation
- * @returns Object
+ * Reads votes data from the file and returns it.
+ * @returns {Array} - Array of votes
  */
 const getVotesFromFile = () => {
   try {
-    // Get the current file modification timestamp
-    const currentTimestamp = fs.statSync(votesFilePath).mtimeMs;
-
-    // Check if votes data is already cached and if the file has been modified since the last cache update
-    if (cachedVotes !== null && currentTimestamp === lastModifiedTimestamp) {
-      return cachedVotes;
-    }
-
     // Read votes data from the file
     const votesData = fs.readFileSync(votesFilePath, "utf-8");
 
-    // Parse the data and update the cache and lastModifiedTimestamp
-    cachedVotes = JSON.parse(votesData);
-    lastModifiedTimestamp = currentTimestamp;
-
-    return cachedVotes;
+    // Parse the data and return it
+    return JSON.parse(votesData);
   } catch (error) {
     // If the file doesn't exist or is empty, return an empty array
     return [];
@@ -105,8 +91,8 @@ voteController.getVotesByPollId = (req, res) => {
  * @returns 
  */
 voteController.postVote = (req, res) => {
-  const pollId = parseInt(req.params.pollId);
-  const optionId = parseInt(req.body.optionId);
+  const pollId = parseInt(req.params.pollId);// Poll chosen
+  const optionId = parseInt(req.body.optionId);// Option chosen
 
   const maxAttempts = 5; // Set a maximum number of attempts if needed
   let attempts = 0;
