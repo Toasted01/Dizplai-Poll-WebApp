@@ -5,18 +5,21 @@ import { fetchPollData } from "./contollers/appController";
 
 function App() {
   
-  const [pollData, setPollData] = useState([]);
+  const [pollId, setPollId] = useState(null);
+  const [question, setQuestion] = useState("");
+  const [options, setOptions] = useState([]);
 
 
   /**
    * Runs on startup, fetches a random poll from the api
-   * Handler for fetch request of a random poll data
    * @returns 
    */
   useEffect(() => {
     const fetchData = async () => {
-      const newPollData = await fetchPollData();
-      setPollData(newPollData);
+      const { pollId, question, options } = await fetchPollData();
+      setPollId(pollId);
+      setQuestion(question);
+      setOptions(options);
     };
     fetchData();
   }, []);
@@ -26,18 +29,13 @@ function App() {
    * Used to handle POST request to add data to the votes api
    * @param {*} selectedOption
    */
-  const handleToggleSubmit = (selectedOption) => {
-    console.log(`Selected option: ${selectedOption}`);
+  const handleToggleSubmit = (selectedId, selectedOption) => {
+    console.log(`Selected option:${selectedId}, ${selectedOption}`);
   };
 
-  const questionTitle = "How many sides does a dodecagon have?";
-  const buttonOptions = [
-    "Option 1",
-    "Option 2",
-    "Option 3",
-    "Option 4",
-    "Option 5",
-  ];
+  const optionCount = () =>{
+    return options.length;
+  }
 
   return (
     <div className="App">
@@ -47,10 +45,10 @@ function App() {
           alt="Logo"
           style={{ width: "50%", height: "auto" }}
         />
-        <h1>{questionTitle}</h1>
+        <h1>{question}</h1>
         <QuestionButton
-          buttonCount={3}
-          buttonOptions={buttonOptions}
+          buttonCount={optionCount()}
+          buttonOptions={options}
           onSubmit={handleToggleSubmit}
         />
       </div>

@@ -2,14 +2,16 @@ import { useState } from "react";
 
 const ToggleButtons = ({ buttonCount, buttonOptions, onSubmit }) => {
   const [selectedOption, setSelectedOption] = useState(null);
+  const [selectedOptionId, setSelectedOptionId] = useState(null);
 
-  const handleButtonClick = (option) => {
+  const handleButtonClick = (option, index) => {
     setSelectedOption(option);
+    setSelectedOptionId(index);
   };
 
   const handleSubmit = () => {
     if (selectedOption !== null) {
-      onSubmit(selectedOption);
+      onSubmit(selectedOptionId, selectedOption);
     } else {
       // Handle case where no option is selected
       console.log("Please select an option before submitting.");
@@ -18,15 +20,22 @@ const ToggleButtons = ({ buttonCount, buttonOptions, onSubmit }) => {
 
   return (
     <div className="button-container">
-      {buttonOptions.slice(0, buttonCount).map((option, index) => (
-        <button
-          key={index}
-          onClick={() => handleButtonClick(option)}
-          className={selectedOption === option ? "activeBtn" : "inactiveBtn"}
-        >
-          {option}
-        </button>
-      ))}
+      {Object.values(buttonOptions)
+        .slice(0, buttonCount)
+        .map((option, index) => (
+          <button
+            key={index}
+            onClick={() =>
+              handleButtonClick(option.optionText, option.optionId)
+            }
+            className={
+              selectedOption === option.optionText ? "activeBtn" : "inactiveBtn"
+            }
+          >
+            {option.optionText}
+          </button>
+        ))}
+
       <button
         onClick={handleSubmit}
         disabled={selectedOption === null}

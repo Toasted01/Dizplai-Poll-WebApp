@@ -20,8 +20,8 @@ const fetchPollCount = async () => {
 };
 
 /**
- * Runs on startup, fetches a random poll from the api
  * Handler for fetch request of a random poll data
+ * Uses a random pollid to find a poll
  * @returns
  */
 const fetchPollData = async () => {
@@ -45,9 +45,7 @@ const fetchPollData = async () => {
     return;
   }
 
-  const newPollData = await pollResponse.json();
-  console.log("Random Poll Data:", newPollData);
-  return newPollData;
+  return await pollResponse.json();
 };
 
 export { fetchPollData };
