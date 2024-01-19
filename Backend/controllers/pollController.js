@@ -27,7 +27,24 @@ const getPollsFromFile = () => {
 // Controller object
 const pollController = {};
 
-// Controller function to retrieve a specific poll by ID
+/**
+ * Controller function to get a count of the polls available in polls.json
+ * Used to get and display a random poll on the front end
+ * @param {*} req 
+ * @param {*} res 
+ */
+pollController.getCountOfPolls = (req, res) => {
+  const polls = getPollsFromFile();
+  const count = polls.length;
+  res.json({ count });
+};
+
+/**
+ * Controller function to get a poll in polls.json by it's pollId.
+ * Used in front end to provide poll details to display
+ * @param {*} req 
+ * @param {*} res 
+ */
 pollController.getPollById = (req, res) => {
   const polls = getPollsFromFile(); // Get the array of polls from the JSON file or cache
   const pollId = parseInt(req.params.pollId); // Extract the poll ID from the request parameters and convert it to an integer

@@ -1,1 +1,97 @@
-[]
+[
+  {
+    "pollId": 1,
+    "pollName": "Premier League Winner",
+    "question": "Who will win the Premier League?",
+    "options": [
+      {
+        "optionId": 1,
+        "optionText": "Manchester City"
+      },
+      {
+        "optionId": 2,
+        "optionText": "Arsenal"
+      },
+      {
+        "optionId": 3,
+        "optionText": "Liverpool"
+      }
+    ]
+  },
+  {
+    "pollId": 2,
+    "pollName": "World Cup Champion",
+    "question": "Which team will win the next World Cup?",
+    "options": [
+      {
+        "optionId": 4,
+        "optionText": "Brazil"
+      },
+      {
+        "optionId": 5,
+        "optionText": "Germany"
+      },
+      {
+        "optionId": 6,
+        "optionText": "France"
+      }
+    ]
+  },
+  {
+    "pollId": 3,
+    "pollName": "Best Movie of the Year",
+    "question": "Which movie do you think will be the best of the year?",
+    "options": [
+      {
+        "optionId": 7,
+        "optionText": "Dune"
+      },
+      {
+        "optionId": 8,
+        "optionText": "No Time to Die"
+      },
+      {
+        "optionId": 9,
+        "optionText": "The Matrix Resurrections"
+      }
+    ]
+  },
+  {
+    "pollId": 4,
+    "pollName": "Tech Innovation",
+    "question": "Which technology innovation will have the biggest impact?",
+    "options": [
+      {
+        "optionId": 10,
+        "optionText": "Artificial Intelligence"
+      },
+      {
+        "optionId": 11,
+        "optionText": "Blockchain"
+      },
+      {
+        "optionId": 12,
+        "optionText": "Quantum Computing"
+      }
+    ]
+  },
+  {
+    "pollId": 5,
+    "pollName": "Music Album of the Year",
+    "question": "Which album will be considered the best of the year?",
+    "options": [
+      {
+        "optionId": 13,
+        "optionText": "Evermore - Taylor Swift"
+      },
+      {
+        "optionId": 14,
+        "optionText": "Chemtrails over the Country Club - Lana Del Rey"
+      },
+      {
+        "optionId": 15,
+        "optionText": "Collapsed in Sunbeams - Arlo Parks"
+      }
+    ]
+  }
+]

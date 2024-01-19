@@ -1,7 +1,35 @@
 import "./App.css";
 import QuestionButton from "./Components/questionBtn";
+import { useState, useEffect } from "react";
+import { fetchPollData } from "./contollers/appController";
 
 function App() {
+  
+  const [pollData, setPollData] = useState([]);
+
+
+  /**
+   * Runs on startup, fetches a random poll from the api
+   * Handler for fetch request of a random poll data
+   * @returns 
+   */
+  useEffect(() => {
+    const fetchData = async () => {
+      const newPollData = await fetchPollData();
+      setPollData(newPollData);
+    };
+    fetchData();
+  }, []);
+  
+
+  /**
+   * Used to handle POST request to add data to the votes api
+   * @param {*} selectedOption
+   */
+  const handleToggleSubmit = (selectedOption) => {
+    console.log(`Selected option: ${selectedOption}`);
+  };
+
   const questionTitle = "How many sides does a dodecagon have?";
   const buttonOptions = [
     "Option 1",
@@ -10,10 +38,6 @@ function App() {
     "Option 4",
     "Option 5",
   ];
-
-  const handleToggleSubmit = (selectedOption) => {
-    console.log(`Selected option: ${selectedOption}`);
-  };
 
   return (
     <div className="App">
