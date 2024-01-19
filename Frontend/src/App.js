@@ -1,7 +1,7 @@
 import "./App.css";
 import QuestionButton from "./Components/questionBtn";
 import { useState, useEffect } from "react";
-import { fetchPollData } from "./contollers/appController";
+import { fetchRandomPoll } from "./contollers/appController";
 
 function App() {
   
@@ -16,7 +16,7 @@ function App() {
    */
   useEffect(() => {
     const fetchData = async () => {
-      const { pollId, question, options } = await fetchPollData();
+      const { pollId, question, options } = await fetchRandomPoll();
       setPollId(pollId);
       setQuestion(question);
       setOptions(options);
