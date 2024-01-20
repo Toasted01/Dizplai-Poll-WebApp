@@ -1,7 +1,7 @@
 import "./App.css";
 import QuestionButton from "./Components/questionBtn";
 import { useState, useEffect } from "react";
-import { fetchRandomPoll } from "./contollers/appController";
+import { fetchRandomPoll, postVote } from "./contollers/apiController";
 
 function App() {
   
@@ -29,8 +29,9 @@ function App() {
    * Used to handle POST request to add data to the votes api
    * @param {*} selectedOption
    */
-  const handleToggleSubmit = (selectedId, selectedOption) => {
-    console.log(`Selected option:${selectedId}, ${selectedOption}`);
+  const handleToggleSubmit = (selectedId) => {
+    console.log(`pollId:${pollId}, optionId ${selectedId}`);
+    postVote(pollId, selectedId);
   };
 
   const optionCount = () =>{

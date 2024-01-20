@@ -1,0 +1,22 @@
+[
+  {
+    "voteId": 1,
+    "pollId": 1,
+    "optionId": 2
+  },
+  {
+    "voteId": 2,
+    "pollId": 2,
+    "optionId": 3
+  },
+  {
+    "voteId": 3,
+    "pollId": 2,
+    "optionId": 1
+  },
+  {
+    "voteId": 4,
+    "pollId": 3,
+    "optionId": 2
+  }
+]

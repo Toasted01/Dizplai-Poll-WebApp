@@ -9,19 +9,17 @@ const path = require("path");
 const votesFilePath = path.join(__dirname, "../data/votes.json");
 const lockFilePath = path.join(__dirname, "../data/votes.lock"); //only exists if a user is writing to votes.json
 
+
 /**
  * Reads votes data from the file and returns it.
  * @returns {Array|Object} - Array of votes
  */
 const getVotesFromFile = () => {
   try {
-    // Read votes data from the file
-    const votesData = fs.readFileSync(votesFilePath, "utf-8");
-
-    // Parse the data and return it
+    const votesData = fs.readFileSync(votesFilePath, 'utf8');
     return JSON.parse(votesData);
   } catch (error) {
-    // If the file doesn't exist or is empty, return an empty array
+    console.error('Error reading votes file:', error);
     return [];
   }
 };
@@ -36,7 +34,7 @@ const getVotesFromFile = () => {
  */
 const acquireFileLock = () => {
   if (fs.existsSync(lockFilePath)) {
-    // If a lock file exists, another process is writing; wait or handle accordingly
+    // If a lock file exists, another process is writing
     console.log("File is locked; waiting for unlock...");
     return false;
   }
@@ -58,12 +56,11 @@ const releaseFileLock = () => {
  * Used to append new votes to the votes.json file
  * @param {*} newVotes
  */
-const appendVotesToFile = (newVotes) => {
+const saveVotesToFile = (votes) => {
   try {
-    const newVotesJson = JSON.stringify(newVotes, null, 2); // Convert new votes to JSON string
-    fs.appendFileSync(votesFilePath, `${newVotesJson}\n`, "utf-8"); // Append the new votes to the end of the file
+    fs.writeFileSync(votesFilePath, JSON.stringify(votes, null, 2), "utf8");
   } catch (error) {
-    console.error("Error appending votes to file:", error);
+    console.error("Error writing votes to file:", error);
   }
 };
 
@@ -86,36 +83,54 @@ voteController.getVotesByPollId = (req, res) => {
  * Used to add new vote to db
  * Uses file lock system to prevent data overwriting and ensures id is unique
  * If file lock check returns false retries up to 5 times
- * @param {*} req 
- * @param {*} res 
- * @returns 
+ * @param {*} req
+ * @param {*} res
+ * @returns
  */
 voteController.postVote = (req, res) => {
-  const pollId = parseInt(req.params.pollId);// Poll chosen
-  const optionId = parseInt(req.body.optionId);// Option chosen
+  const pollId = parseInt(req.params.pollId);
+  const optionId = parseInt(req.body.optionId);
 
-  const maxAttempts = 5; // Set a maximum number of attempts if needed
+  const maxAttempts = 5;
   let attempts = 0;
 
   while (attempts < maxAttempts) {
     if (acquireFileLock()) {
-      const newVote = {
-        voteId: getVotesFromFile().length + 1, // Generate a unique voteId
-        pollId,
-        optionId,
-      };
+      try {
+        const votesFromFile = getVotesFromFile();
 
-      appendVotesToFile(newVote);
-      releaseFileLock();
-      res.json({ message: "Vote recorded successfully", vote: newVote });
-      return; // Exit the function if vote is recorded successfully
+        const newVote = {
+          voteId: votesFromFile.length + 1,
+          pollId,
+          optionId,
+        };
+
+        // Append the new vote to the array
+        votesFromFile.push(newVote);
+
+        // Save only the new vote to the file
+        saveVotesToFile(votesFromFile);
+
+        releaseFileLock();
+
+        res.json({ message: "Vote recorded successfully", vote: newVote });
+        return;
+      } catch (error) {
+        console.error("Error processing file operations:", error);
+        res.status(500).json({ error: "Internal Server Error" });
+        return;
+      }
     } else {
       attempts += 1;
-      console.log(`Attempt ${attempts}: Unable to acquire file lock; retrying...`);
+      console.log(
+        `Attempt ${attempts}: Unable to acquire file lock; retrying...`
+      );
     }
   }
 
-  console.log(`File lock not acquired after ${maxAttempts} attempts; try again later`);
+  console.log(
+    `File lock not acquired after ${maxAttempts} attempts; try again later`
+  );
   res.status(500).json({ error: "Unable to record vote at this time" });
 };
 

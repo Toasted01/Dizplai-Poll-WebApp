@@ -15,7 +15,7 @@ const voteRoutes = require('./routes/votes');
 app.use('/api/polls', pollRoutes);
 app.use('/api/votes', voteRoutes);
 
-// Error Handling
+// Error Handling (move this middleware below your route handlers)
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).json({ error: 'Something went wrong!' });
