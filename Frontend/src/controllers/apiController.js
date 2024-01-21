@@ -14,7 +14,6 @@ const fetchRandomPoll = async () => {
     return await response.json();
   } catch (error) {
     console.error(`Error during fetchRandomPoll: ${error.message}`);
-    // Handle error as needed
     return null;
   }
 };
@@ -37,7 +36,6 @@ const fetchPollById = async (userPollId) => {
     return await response.json();
   } catch (error) {
     console.error(`Error during fetchPollById: ${error.message}`);
-    // Handle error as needed
     return null;
   }
 };
@@ -85,7 +83,6 @@ const fetchOptionVotePercentByPollId = async (pollId) => {
     return data;
   } catch (error) {
     console.error('Error fetching option vote percentage:', error.message);
-    // Handle error as needed
   }
 };
 

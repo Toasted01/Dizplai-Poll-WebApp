@@ -1,20 +1,19 @@
 import "./App.css";
-import QuestionButton from "./Components/questionBtn";
-import ResultPage from './ResultPage';
+import QuestionButton from "./Components/QuestionBtn";
+import ResultPage from "./ResultPage";
 import { useState, useEffect } from "react";
-import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
-import { fetchRandomPoll, postVote } from "./contollers/apiController";
+import { Route, Routes, Navigate, useNavigate } from "react-router-dom";
+import { fetchRandomPoll, postVote } from "./controllers/apiController";
 
 function App() {
-  
+  let navigate = useNavigate();
   const [pollId, setPollId] = useState(null);
   const [question, setQuestion] = useState("");
   const [options, setOptions] = useState([]);
 
-
   /**
    * Runs on startup, fetches a random poll from the api
-   * @returns 
+   * @returns
    */
   useEffect(() => {
     const fetchData = async () => {
@@ -25,24 +24,29 @@ function App() {
     };
     fetchData();
   }, []);
-  
 
   /**
    * Used to handle POST request to add data to the votes api
-   * @param {*} selectedOption
+   * @param {*} selectedId
    */
   const handleToggleSubmit = (selectedId) => {
     console.log(`pollId:${pollId}, optionId ${selectedId}`);
     postVote(pollId, selectedId);
+    navigate(`/result/${pollId}`);
   };
 
   return (
-    <Router>
-      <div className="App">
-        <Switch>
-          <Route path="/" exact>
+    <div className="App">
+      <Routes>
+        <Route
+          path="/"
+          element={
             <div className="content-container">
-              <img src="/logo.png" alt="Logo" style={{ width: '50%', height: 'auto' }} />
+              <img
+                src="/logo.png"
+                alt="Logo"
+                style={{ width: "50%", height: "auto" }}
+              />
               <h1>{question}</h1>
               <QuestionButton
                 buttonCount={options.length}
@@ -50,12 +54,12 @@ function App() {
                 onSubmit={handleToggleSubmit}
               />
             </div>
-          </Route>
-          <Route path="/result/:pollId" exact component={ResultPage} />
-          <Redirect from="/result" to="/" />
-        </Switch>
-      </div>
-    </Router>
+          }
+        />
+        <Route path="/result/:pollId" element={<ResultPage />} />
+        <Route path="/result" element={<Navigate to="/" />} />
+      </Routes>
+    </div>
   );
 }
 

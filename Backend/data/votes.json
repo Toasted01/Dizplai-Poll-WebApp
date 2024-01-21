@@ -18,5 +18,100 @@
     "voteId": 4,
     "pollId": 3,
     "optionId": 2
+  },
+  {
+    "voteId": 5,
+    "pollId": 2,
+    "optionId": 1
+  },
+  {
+    "voteId": 6,
+    "pollId": 2,
+    "optionId": 1
+  },
+  {
+    "voteId": 7,
+    "pollId": 2,
+    "optionId": 1
+  },
+  {
+    "voteId": 8,
+    "pollId": 2,
+    "optionId": 1
+  },
+  {
+    "voteId": 9,
+    "pollId": 5,
+    "optionId": 1
+  },
+  {
+    "voteId": 10,
+    "pollId": 5,
+    "optionId": 1
+  },
+  {
+    "voteId": 11,
+    "pollId": 5,
+    "optionId": 2
+  },
+  {
+    "voteId": 12,
+    "pollId": 4,
+    "optionId": 1
+  },
+  {
+    "voteId": 13,
+    "pollId": 4,
+    "optionId": 1
+  },
+  {
+    "voteId": 14,
+    "pollId": 4,
+    "optionId": 1
+  },
+  {
+    "voteId": 15,
+    "pollId": 4,
+    "optionId": 3
+  },
+  {
+    "voteId": 16,
+    "pollId": 4,
+    "optionId": 3
+  },
+  {
+    "voteId": 17,
+    "pollId": 4,
+    "optionId": 2
+  },
+  {
+    "voteId": 18,
+    "pollId": 3,
+    "optionId": 1
+  },
+  {
+    "voteId": 19,
+    "pollId": 3,
+    "optionId": 1
+  },
+  {
+    "voteId": 20,
+    "pollId": 3,
+    "optionId": 2
+  },
+  {
+    "voteId": 21,
+    "pollId": 3,
+    "optionId": 3
+  },
+  {
+    "voteId": 22,
+    "pollId": 3,
+    "optionId": 1
+  },
+  {
+    "voteId": 23,
+    "pollId": 3,
+    "optionId": 1
   }
 ]
