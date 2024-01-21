@@ -4,18 +4,21 @@
  * @returns
  */
 const fetchRandomPoll = async () => {
-  const pollResponse = await fetch(
-    `http://localhost:3001/api/polls/random`
-  );
+  try {
+    const response = await fetch(`http://localhost:3001/api/polls/random`);
 
-  //if fetch request fails error and return
-  if (!pollResponse.ok) {
-    console.error(`Error fetching random poll. Status: ${pollResponse.status}`);
-    return;
+    if (!response.ok) {
+      throw new Error(`Failed to fetch random poll. Status: ${response.status}`);
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error(`Error during fetchRandomPoll: ${error.message}`);
+    // Handle error as needed
+    return null;
   }
-
-  return await pollResponse.json();
 };
+
 
 /**
  * Handler for fetch request of a specific poll at a pollId
@@ -24,17 +27,19 @@ const fetchRandomPoll = async () => {
  * @returns 
  */
 const fetchPollById = async (userPollId) => {
-  const pollResponse = await fetch(
-    `http://localhost:3001/api/polls/${userPollId}`
-  );
+  try {
+    const response = await fetch(`http://localhost:3001/api/polls/${userPollId}`);
 
-  //if fetch request fails error and return
-  if (!pollResponse.ok) {
-    console.error(`Error fetching random poll. Status: ${pollResponse.status}`);
-    return;
+    if (!response.ok) {
+      throw new Error(`Failed to fetch poll with ID ${userPollId}. Status: ${response.status}`);
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error(`Error during fetchPollById: ${error.message}`);
+    // Handle error as needed
+    return null;
   }
-
-  return await pollResponse.json();
 };
 
 /**
@@ -68,4 +73,20 @@ const postVote = async (pollId, userOptionId) =>{
   }
 }
 
-export { fetchPollById, fetchRandomPoll, postVote };
+const fetchOptionVotePercentByPollId = async (pollId) => {
+  try {
+    const response = await fetch(`http://localhost:3001/api/votes/${pollId}`);
+    
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error fetching option vote percentage:', error.message);
+    // Handle error as needed
+  }
+};
+
+export { fetchPollById, fetchRandomPoll, postVote, fetchOptionVotePercentByPollId };

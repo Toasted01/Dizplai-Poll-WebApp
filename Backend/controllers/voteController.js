@@ -1,14 +1,8 @@
 const fs = require("fs");
 const path = require("path");
 
-/**
- * finds the json file
- * starts at current directory: __dirname
- * then goes up the directory and to data/votes.json
- */
 const votesFilePath = path.join(__dirname, "../data/votes.json");
 const lockFilePath = path.join(__dirname, "../data/votes.lock"); //only exists if a user is writing to votes.json
-
 
 /**
  * Reads votes data from the file and returns it.
@@ -16,10 +10,10 @@ const lockFilePath = path.join(__dirname, "../data/votes.lock"); //only exists i
  */
 const getVotesFromFile = () => {
   try {
-    const votesData = fs.readFileSync(votesFilePath, 'utf8');
+    const votesData = fs.readFileSync(votesFilePath, "utf8");
     return JSON.parse(votesData);
   } catch (error) {
-    console.error('Error reading votes file:', error);
+    console.error("Error reading votes file:", error);
     return [];
   }
 };
@@ -56,7 +50,7 @@ const releaseFileLock = () => {
  * Used to append new votes to the votes.json file
  * @param {*} newVotes
  */
-const saveVotesToFile = (votes) => {
+const saveVoteToFile = (votes) => {
   try {
     fs.writeFileSync(votesFilePath, JSON.stringify(votes, null, 2), "utf8");
   } catch (error) {
@@ -64,19 +58,74 @@ const saveVotesToFile = (votes) => {
   }
 };
 
+/**
+ * Used to calculate the votes per optionId
+ * @param {Array} votes array of all votes per pollId
+ * @returns {int, Object} total number of votes, {"optionId", count}
+ */
+const calculateVotes = (votes) => {
+  const totalVotes = votes.length;
+
+  //Used to go through the votes array and add each optionId as a property and the value as the count of its votes
+  const votesPerOption = votes.reduce(
+    //callback function:
+    (optionCounts, vote) => {
+      const optionId = vote.optionId;
+      optionCounts[optionId] = (optionCounts[optionId] || 0) + 1; //key=value
+      return optionCounts;
+    },
+    {}//initial value
+  );
+
+  return {
+    totalVotes,
+    votesPerOption,
+  };
+};
+
+/**
+ * Used to calculate the percentage of the total votes for each optionId
+ * @param {int} totalVotes Count of all votes per pollId
+ * @param {Object} votesPerOption {"optionId": count}
+ * @returns
+ */
+const calculatePercentages = (totalVotes, votesPerOption) => {
+  const percentageVotesPerOption = Object.entries(votesPerOption).reduce(
+    //callback function:
+    (percentageCounts, [optionId, count]) => {
+      const percentage = (count / totalVotes) * 100;
+      percentageCounts[optionId] = percentage; //key=value
+      return percentageCounts;
+    },
+    {} //initial value
+  );
+
+  return percentageVotesPerOption;
+};
+
 // Controller object
 const voteController = {};
 
 /**
- * Used to get all the votes relating to the pollId passed in req
- * Used to show percentage overlay
+ * Used to get the Total ammount of votes per pollId and percentage of total votes for each option
+ * res.json = {"totalVotes": int,{["optionId", int]}}
  * @param {*} req
  * @param {*} res
  */
-voteController.getVotesByPollId = (req, res) => {
-  const pollId = parseInt(req.params.pollId); // parses the pollId param into an int
-  const votes = getVotesFromFile().filter((vote) => vote.pollId === pollId); // checks each object from getVotesFromFile and filters out all objects that dont contain the pollId supplied
-  res.json(votes); // response with the json object of the filtered votes
+voteController.getOptionVotePercentByPollId = (req, res) => {
+  const pollId = parseInt(req.params.pollId);
+  const votes = getVotesFromFile().filter((vote) => vote.pollId === pollId);
+
+  const { totalVotes, votesPerOption } = calculateVotes(votes);
+  const percentageVotesPerOption = calculatePercentages(
+    totalVotes,
+    votesPerOption
+  );
+
+  res.json({
+    totalVotes,
+    percentageVotesPerOption,
+  });
 };
 
 /**
@@ -109,7 +158,7 @@ voteController.postVote = (req, res) => {
         votesFromFile.push(newVote);
 
         // Save only the new vote to the file
-        saveVotesToFile(votesFromFile);
+        saveVoteToFile(votesFromFile);
 
         releaseFileLock();
 
@@ -134,5 +183,5 @@ voteController.postVote = (req, res) => {
   res.status(500).json({ error: "Unable to record vote at this time" });
 };
 
-// Export the controller object
+
 module.exports = voteController;

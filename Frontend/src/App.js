@@ -1,6 +1,8 @@
 import "./App.css";
 import QuestionButton from "./Components/questionBtn";
+import ResultPage from './ResultPage';
 import { useState, useEffect } from "react";
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import { fetchRandomPoll, postVote } from "./contollers/apiController";
 
 function App() {
@@ -34,26 +36,26 @@ function App() {
     postVote(pollId, selectedId);
   };
 
-  const optionCount = () =>{
-    return options.length;
-  }
-
   return (
-    <div className="App">
-      <div className="content-container">
-        <img
-          src="/logo.png"
-          alt="Logo"
-          style={{ width: "50%", height: "auto" }}
-        />
-        <h1>{question}</h1>
-        <QuestionButton
-          buttonCount={optionCount()}
-          buttonOptions={options}
-          onSubmit={handleToggleSubmit}
-        />
+    <Router>
+      <div className="App">
+        <Switch>
+          <Route path="/" exact>
+            <div className="content-container">
+              <img src="/logo.png" alt="Logo" style={{ width: '50%', height: 'auto' }} />
+              <h1>{question}</h1>
+              <QuestionButton
+                buttonCount={options.length}
+                buttonOptions={options}
+                onSubmit={handleToggleSubmit}
+              />
+            </div>
+          </Route>
+          <Route path="/result/:pollId" exact component={ResultPage} />
+          <Redirect from="/result" to="/" />
+        </Switch>
       </div>
-    </div>
+    </Router>
   );
 }
 
