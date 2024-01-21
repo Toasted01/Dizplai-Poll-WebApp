@@ -29,10 +29,19 @@ function App() {
    * Used to handle POST request to add data to the votes api
    * @param {*} selectedId
    */
-  const handleToggleSubmit = (selectedId) => {
-    console.log(`pollId:${pollId}, optionId ${selectedId}`);
-    postVote(pollId, selectedId);
-    navigate(`/result/${pollId}`);
+  const handleToggleSubmit = async (selectedId) => {
+    try {
+      console.log(`pollId:${pollId}, optionId ${selectedId}`);
+      
+      await postVote(pollId, selectedId);
+  
+      // Introduce a delay (e.g., 500 milliseconds) to ensure the data is updated
+      await new Promise(resolve => setTimeout(resolve, 500));
+  
+      navigate(`/result/${pollId}`);
+    } catch (error) {
+      console.error("Error during handleToggleSubmit:", error.message);
+    }
   };
 
   return (

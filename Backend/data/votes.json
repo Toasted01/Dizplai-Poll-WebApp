@@ -113,5 +113,30 @@
     "voteId": 23,
     "pollId": 3,
     "optionId": 1
+  },
+  {
+    "voteId": 24,
+    "pollId": 1,
+    "optionId": 1
+  },
+  {
+    "voteId": 25,
+    "pollId": 1,
+    "optionId": 1
+  },
+  {
+    "voteId": 26,
+    "pollId": 1,
+    "optionId": 1
+  },
+  {
+    "voteId": 27,
+    "pollId": 1,
+    "optionId": 1
+  },
+  {
+    "voteId": 28,
+    "pollId": 1,
+    "optionId": 1
   }
 ]
