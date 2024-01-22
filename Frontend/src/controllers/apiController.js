@@ -1,3 +1,5 @@
+const apiServerIP = "http://192.168.0.11:3001/";
+
 /**
  * Handler for fetch request of a random poll data
  * Uses a random pollid to find a poll
@@ -5,7 +7,7 @@
  */
 const fetchRandomPoll = async () => {
   try {
-    const response = await fetch(`http://192.168.0.11:3001/api/polls/random`);
+    const response = await fetch(apiServerIP+`api/polls/random`);
 
     if (!response.ok) {
       throw new Error(
@@ -29,7 +31,7 @@ const fetchRandomPoll = async () => {
 const fetchPollById = async (userPollId) => {
   try {
     const response = await fetch(
-      `http://192.168.0.11:3001/api/polls/${userPollId}`
+      apiServerIP+`api/polls/${userPollId}`
     );
 
     if (!response.ok) {
@@ -62,7 +64,7 @@ const postVote = async (pollId, userOptionId) => {
     };
 
     const response = await fetch(
-      `http://192.168.0.11:3001/api/votes/${pollId}`,
+      apiServerIP+`api/votes/${pollId}`,
       requestOptions
     );
 
@@ -85,7 +87,7 @@ const postVote = async (pollId, userOptionId) => {
  */
 const fetchOptionVotePercentByPollId = async (pollId) => {
   try {
-    const response = await fetch(`http://192.168.0.11:3001/api/votes/${pollId}`);
+    const response = await fetch(apiServerIP+`api/votes/${pollId}`);
 
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);

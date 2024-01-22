@@ -97,7 +97,8 @@ Backend:
 
 ## Usage
 
-Connect to http://localhost:3000 to view the front end react app.  
+Go into the file /frontend/src/controller/apiController.js and change apiServerIP to the ip:port of your backend server, dont use localhost for it
+Connect to http://localhost:3000 or http://192.168.xx.xx:3000 to view the front end react app. when running npm start it should tell you where it is hosted
 You will be presented with one of the polls.  
 Read the question then select an option and hit submit.  
 The page will change to display the percentage popularity of each option
