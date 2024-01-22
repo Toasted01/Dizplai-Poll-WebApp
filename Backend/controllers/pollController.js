@@ -1,11 +1,6 @@
 const fs = require("fs");
 const path = require("path");
 
-/**
- * finds the json file
- * starts at current directory: _dirname
- * then goes up the directory and to data/polls.json
- */
 const pollsFilePath = path.join(__dirname, "../data/polls.json");
 
 let cachedPolls = null;
@@ -14,7 +9,7 @@ let cachedPolls = null;
  * function to get all the data on the polls
  * checks to see if cachedPolls is empty, then if true retrieves the data from the json file
  * cachedPolls used so that the server doesn't have to make the json retrieval on every run
- * @returns Object
+ * @returns {Object}
  */
 const getPollsFromFile = () => {
   if (!cachedPolls) {
@@ -30,8 +25,8 @@ const pollController = {};
 /**
  * Controller function to get a random poll from polls.json by it's pollId
  * Used in front end to provide poll details to display
- * @param {*} req 
- * @param {*} res 
+ * @param {*} req
+ * @param {*} res
  */
 pollController.getRandomPolls = (req, res) => {
   const polls = getPollsFromFile();
@@ -50,8 +45,8 @@ pollController.getRandomPolls = (req, res) => {
 /**
  * Controller function to get a poll in polls.json by it's pollId.
  * Used in front end to provide poll details to display
- * @param {*} req 
- * @param {*} res 
+ * @param {*} req
+ * @param {*} res
  */
 pollController.getPollById = (req, res) => {
   const polls = getPollsFromFile(); // Get the array of polls from the JSON file or cache
@@ -66,5 +61,4 @@ pollController.getPollById = (req, res) => {
   }
 };
 
-// Export the controller object
 module.exports = pollController;

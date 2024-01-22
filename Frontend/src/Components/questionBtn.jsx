@@ -13,7 +13,6 @@ const ToggleButtons = ({ buttonCount, buttonOptions, onSubmit }) => {
     if (selectedOption !== null) {
       onSubmit(selectedOptionId);
     } else {
-      // Handle case where no option is selected
       console.log("Please select an option before submitting.");
     }
   };

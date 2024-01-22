@@ -64,7 +64,7 @@ const ResultPage = () => {
         style={{ width: "50%", height: "auto" }}
       />
       <h1>Thank you for your response</h1>
-      <PercentageChoiceBar optionBarPercentages = {optionsPercentage}/>
+      <PercentageChoiceBar optionBarPercentages={optionsPercentage} />
     </div>
   );
 };

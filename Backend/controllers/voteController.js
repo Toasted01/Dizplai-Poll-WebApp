@@ -43,7 +43,7 @@ const acquireFileLock = () => {
  * called after all writes to votes.json have completed in voteController.postVote()
  */
 const releaseFileLock = () => {
-  fs.unlinkSync(lockFilePath); // Remove the lock file to release exclusive access
+  fs.unlinkSync(lockFilePath);
 };
 
 /**
@@ -74,7 +74,7 @@ const calculateVotes = (votes) => {
       optionCounts[optionId] = (optionCounts[optionId] || 0) + 1; //key=value
       return optionCounts;
     },
-    {}//initial value
+    {} //initial value
   );
 
   return {
@@ -154,12 +154,8 @@ voteController.postVote = (req, res) => {
           optionId,
         };
 
-        // Append the new vote to the array
         votesFromFile.push(newVote);
-
-        // Save only the new vote to the file
         saveVoteToFile(votesFromFile);
-
         releaseFileLock();
 
         res.json({ message: "Vote recorded successfully", vote: newVote });
@@ -182,6 +178,5 @@ voteController.postVote = (req, res) => {
   );
   res.status(500).json({ error: "Unable to record vote at this time" });
 };
-
 
 module.exports = voteController;

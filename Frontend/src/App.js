@@ -17,27 +17,39 @@ function App() {
    */
   useEffect(() => {
     const fetchData = async () => {
-      const { pollId, question, options } = await fetchRandomPoll();
-      setPollId(pollId);
-      setQuestion(question);
-      setOptions(options);
+      try {
+        const data = await fetchRandomPoll();
+  
+        // Check if data is not null and has the required properties
+        if (data && data.pollId && data.question && data.options) {
+          setPollId(data.pollId);
+          setQuestion(data.question);
+          setOptions(data.options);
+        } else {
+          console.error('Error: Invalid data format from fetchRandomPoll');
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
     };
+  
     fetchData();
   }, []);
+  
 
   /**
    * Used to handle POST request to add data to the votes api
-   * @param {*} selectedId
+   * @param {int} selectedId
    */
   const handleToggleSubmit = async (selectedId) => {
     try {
       console.log(`pollId:${pollId}, optionId ${selectedId}`);
-      
+
       await postVote(pollId, selectedId);
-  
-      // Introduce a delay (e.g., 500 milliseconds) to ensure the data is updated
-      await new Promise(resolve => setTimeout(resolve, 500));
-  
+
+      // Introduced 500 milliseconds delay to ensure the data is updated
+      await new Promise((resolve) => setTimeout(resolve, 500));
+
       navigate(`/result/${pollId}`);
     } catch (error) {
       console.error("Error during handleToggleSubmit:", error.message);

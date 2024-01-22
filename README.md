@@ -41,7 +41,21 @@ The repo is split into two folders for the Backend and Frontend
     - votes.js
   - server.js
 - Frontend
-  (react frontend)
+  - public...
+  - src
+    - Components
+      - PercentageChoiceBar.jsx
+      - QuestionBtn.jsx
+    - controllers
+      - apiController.js
+    - App.css
+    - App.js
+    - index.css
+    - index.js
+    - ResultPage.js
+    - results.css
+  - package-lock.json
+  - package.json
 - .gitignore
 - README.md
 ```
@@ -86,4 +100,4 @@ Backend:
 Connect to http://localhost:3000 to view the front end react app.  
 You will be presented with one of the polls.  
 Read the question then select an option and hit submit.  
-The screen will update to show the percentage of times each answer was chosen.
+The page will change to display the percentage popularity of each option
