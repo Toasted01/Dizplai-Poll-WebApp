@@ -1,5 +1,5 @@
 import "./App.css";
-import QuestionButton from "./Components/QuestionBtn";
+import QuestionButton from "./Components/questionBtn";
 import ResultPage from "./ResultPage";
 import { useState, useEffect } from "react";
 import { Route, Routes, Navigate, useNavigate } from "react-router-dom";
