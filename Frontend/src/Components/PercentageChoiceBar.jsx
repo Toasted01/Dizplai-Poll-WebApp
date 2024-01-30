@@ -20,7 +20,7 @@ const PercentageChoiceBar = ({ optionBarPercentages }) => {
             ></div>
 
             <span className="percent-num">
-              {Math.round(isNaN(percentage) ? 0 : percentage)}%
+              {isNaN(percentage) ? 0 : percentage}%
             </span>
 
             <div className="option-text-wrapper">

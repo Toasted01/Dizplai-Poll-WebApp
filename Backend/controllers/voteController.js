@@ -91,17 +91,32 @@ const calculateVotes = (votes) => {
  */
 const calculatePercentages = (totalVotes, votesPerOption) => {
   const percentageVotesPerOption = Object.entries(votesPerOption).reduce(
-    //callback function:
-    (percentageCounts, [optionId, count]) => {
+    (percentageCounts, [optionId, count], index, arr) => {
       const percentage = (count / totalVotes) * 100;
-      percentageCounts[optionId] = percentage; //key=value
+      const roundedPercentage = Math.round(percentage);
+
+      percentageCounts[optionId] = roundedPercentage;
+
+      if (index === arr.length - 1) {
+        // If it's the last option, adjust to make the total 100%
+        const totalRounded = Object.values(percentageCounts).reduce(
+          (sum, p) => sum + p,
+          0
+        );
+
+        const adjustment = 100 - totalRounded;
+        percentageCounts[optionId] += adjustment;
+      }
+
       return percentageCounts;
     },
-    {} //initial value
+    {}
   );
 
   return percentageVotesPerOption;
 };
+
+
 
 // Controller object
 const voteController = {};
