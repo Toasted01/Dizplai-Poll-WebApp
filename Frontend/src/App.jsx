@@ -1,9 +1,9 @@
 import "./App.css";
-import QuestionButton from "./Components/questionBtn";
+import QuestionButton from "./Components/QuestionBtn";
 import ResultPage from "./ResultPage";
 import { useState, useEffect } from "react";
 import { Route, Routes, Navigate, useNavigate } from "react-router-dom";
-import { fetchRandomPoll, postVote } from "./controllers/apiController";
+import { fetchRandomPoll, postVote } from "./Controllers/apiController";
 
 function App() {
   let navigate = useNavigate();
@@ -19,23 +19,22 @@ function App() {
     const fetchData = async () => {
       try {
         const data = await fetchRandomPoll();
-  
+
         // Check if data is not null and has the required properties
         if (data && data.pollId && data.question && data.options) {
           setPollId(data.pollId);
           setQuestion(data.question);
           setOptions(data.options);
         } else {
-          console.error('Error: Invalid data format from fetchRandomPoll');
+          console.error("Error: Invalid data format from fetchRandomPoll");
         }
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error("Error fetching data:", error);
       }
     };
-  
+
     fetchData();
   }, []);
-  
 
   /**
    * Used to handle POST request to add data to the votes api
