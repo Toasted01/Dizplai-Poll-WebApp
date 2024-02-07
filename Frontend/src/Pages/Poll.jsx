@@ -1,8 +1,8 @@
-import "./App.css";
-import QuestionButton from "./Components/QuestionBtn";
+import "../Styles/App.css";
+import QuestionButton from "../Components/QuestionBtn";
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { fetchPollById, postVote } from "./Controllers/apiController";
+import { fetchPollById, postVote } from "../Controllers/apiController";
 
 function App() {
   let navigate = useNavigate();

@@ -1,3 +1,26 @@
+body {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  font-family: 'Outfit';
+  font-size: 22px;
+  color: white;
+
+  background-image: url('../background.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+  background-size: cover;
+
+  padding-top: 20px;
+  min-height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .App {
   text-align: center;
 }

@@ -11,10 +11,9 @@ Poll taking web app created as part of technical interview project for Dizplai
   - [Installation](#installation)
 - [Running the Project](#running-the-project)
 - [Usage](#usage)
-- [Run Elsewhere](#run-elsewhere)
-- [Security](#security)
 - [Tools Used](#tools-used)
 - [Testing](#testing)
+- [Points of interest](#points-of-interest)
 
 ## Introduction
 
@@ -57,16 +56,21 @@ The repo is split into two folders for the Backend and Frontend
     - Components
       - PercentageChoiceBar.jsx
       - QuestionBtn.jsx
-    - controllers
+    - Controllers
       - apiController.js
-    - App.css
-    - App.js
-    - index.css
-    - index.js
-    - ResultPage.js
-    - results.css
+    - Pages
+      - Poll.jsx
+      - ResultPage.jsx
+    - Styles
+      - App.css
+      - results.css
+    - main.jsx
+  - .env
+  - .eslintrc.cjs
+  - index.html
   - package-lock.json
   - package.json
+  - vite.config.js
 - .gitignore
 - README.md
 ```
@@ -85,12 +89,18 @@ Frontend:
 
 - cd Frontend
 - npm install
-- create .env file with key VITE_API_SERVER_IP=
+- create .env file
 
 Backend:
 
 - cd Backend
 - npm install
+
+Enviroment:
+
+```
+VITE_SERVER_IP = http://_BACKENDIP_:3001
+```
 
 ## Running The Project
 
@@ -100,7 +110,7 @@ Start up the backend first so you don't have to refresh the page on the front en
 Frontend:
 
 - cd Frontend
-- npm start
+- npm run dev
 
 Backend:
 
@@ -109,35 +119,16 @@ Backend:
 
 ## Usage
 
-Go into the file ./frontend/src/controller/apiController.js:1 and change apiServerIP to the ip:port of your backend server, dont use localhost for it.
-Connect to http://localhost:3000 or http://192.168.xx.xx:3000 to view the front end react app. When running npm start it should tell you where it is hosted
 You will be presented with one of the polls.  
 Read the question then select an option and hit submit.  
 The page will change to display the percentage popularity of each option.
 
-## Run Elsewhere
-
-- To run the api server elsewhere you can change the apiServerIP variable to your ip:port.
-- Could be dockerised to ensure it runs smoothly across all devices.
-- Could make a build version of the react frontend so you only host what is needed for this web app.
-
-## Security
-
-Pros:
-
-- Due to no user input fields direct script injection is very unlikely.
-- No SQL server is used in this current version so no SQL injection possible.
-
-Cons:
-
-- No https
-- No api Authentication / user Authentication.
-- Users able to submit votes unlimited -> quickly fill votes.json and server hard drives / DDos.
-- Possibly able to MitM attack due to the server being http.
+you can change which poll/result you see by updating the url to include a different pollId
 
 ## Tools used
 
-Node.js Express was recommended for the api and i also wanted to do more work with node.js. This also meant it was easy to decide on using JSON for persistent storage because it works well with node.js and the frontend, for which i chose react js. I've been using react js a lot recently and wanted to keep using it, it also works well with the rest of the stack.
+- Node.js
+- React.js(Vite)
 
 ## Testing
 
@@ -150,7 +141,6 @@ Functionality testing:
 
 - Added test data for votes to see if the api fetches votes correctly.
 - Added test data for polls to see if the api fetches polls correctly.
-- console.log used to log key information about requests to and from the server.
 
 High detail unit/user testing seemed unnecessary due to simplicity in application and no custom user inputs.
 

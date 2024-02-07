@@ -1,12 +1,12 @@
+import "../Styles/results.css";
+import "../Styles/App.css";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import PercentageChoiceBar from "./Components/PercentageChoiceBar";
+import PercentageChoiceBar from "../Components/PercentageChoiceBar";
 import {
   fetchOptionVotePercentByPollId,
   fetchPollById,
-} from "./Controllers/apiController";
-import "./results.css";
-import "./App.css";
+} from "../Controllers/apiController";
 
 const ResultPage = () => {
   const [optionsPercentage, setOptionsPercentage] = useState({});
