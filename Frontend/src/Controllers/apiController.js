@@ -1,4 +1,4 @@
-const apiServerIP = "http://192.168.0.11:3001/";
+const apiServerIP = import.meta.env.VITE_API_SERVER_IP;
 
 /**
  * Handler for fetch request of a specific poll at a pollId
