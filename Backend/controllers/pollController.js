@@ -23,26 +23,6 @@ const getPollsFromFile = () => {
 const pollController = {};
 
 /**
- * Controller function to get a random poll from polls.json by it's pollId
- * Used in front end to provide poll details to display
- * @param {*} req
- * @param {*} res
- */
-pollController.getRandomPolls = (req, res) => {
-  const polls = getPollsFromFile();
-  const pollsCount = polls.length;
-  const randomPollId = Math.floor(Math.random() * pollsCount) + 1;
-  const poll = polls.find((p) => p.pollId === randomPollId); // Find the poll with the specified ID in the polls array where 'p' is the current poll object in the find loop
-
-  // Check if the poll with the specified ID was not found
-  if (!poll) {
-    res.status(404).json({ message: "Poll not found" }); // Respond with a 404 status and a JSON message indicating that the poll was not found
-  } else {
-    res.json(poll); // Respond with a JSON object representing the found poll
-  }
-};
-
-/**
  * Controller function to get a poll in polls.json by it's pollId.
  * Used in front end to provide poll details to display
  * @param {*} req

@@ -1,30 +1,7 @@
 const apiServerIP = "http://192.168.0.11:3001/";
 
 /**
- * Handler for fetch request of a random poll data
- * Uses a random pollid to find a poll
- * @returns
- */
-const fetchRandomPoll = async () => {
-  try {
-    const response = await fetch(apiServerIP+`api/polls/random`);
-
-    if (!response.ok) {
-      throw new Error(
-        `Failed to fetch random poll. Status: ${response.status}`
-      );
-    }
-
-    return await response.json();
-  } catch (error) {
-    console.error(`Error during fetchRandomPoll: ${error.message}`);
-    return null;
-  }
-};
-
-/**
  * Handler for fetch request of a specific poll at a pollId
- * Not used in code but provided as alternative
  * @param {int} userPollId Enter a specific poll id starting at 1
  * @returns
  */
@@ -102,7 +79,6 @@ const fetchOptionVotePercentByPollId = async (pollId) => {
 
 export {
   fetchPollById,
-  fetchRandomPoll,
   postVote,
   fetchOptionVotePercentByPollId,
 };
