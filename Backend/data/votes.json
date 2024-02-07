@@ -153,5 +153,10 @@
     "voteId": 31,
     "pollId": 4,
     "optionId": 3
+  },
+  {
+    "voteId": 32,
+    "pollId": 1,
+    "optionId": 1
   }
 ]
