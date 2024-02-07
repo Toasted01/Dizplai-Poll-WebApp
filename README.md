@@ -85,6 +85,7 @@ Frontend:
 
 - cd Frontend
 - npm install
+- create .env file with key VITE_API_SERVER_IP=
 
 Backend:
 
