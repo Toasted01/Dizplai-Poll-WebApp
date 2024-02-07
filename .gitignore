@@ -8,3 +8,6 @@
 #Data
 /Backend/data/votes.json
 /Backend/data/Polls.json
+
+#Enviroment
+/Frontend/.env
