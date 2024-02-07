@@ -2,15 +2,12 @@ import "./App.css";
 import QuestionButton from "./Components/QuestionBtn";
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import {
-  fetchPollById,
-  fetchRandomPoll,
-  postVote,
-} from "./Controllers/apiController";
+import { fetchPollById, postVote } from "./Controllers/apiController";
 
 function App() {
   let navigate = useNavigate();
   const { pollId } = useParams();
+  const [isNull, setIsNull] = useState(false);
   const [thisPollId, setPollId] = useState(null);
   const [question, setQuestion] = useState("");
   const [options, setOptions] = useState([]);
@@ -31,6 +28,7 @@ function App() {
           setOptions(data.options);
         } else {
           console.error("Error: Invalid data format from fetchRandomPoll");
+          setIsNull(true);
         }
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -67,12 +65,18 @@ function App() {
           alt="Logo"
           style={{ width: "50%", height: "auto" }}
         />
-        <h1>{question}</h1>
-        <QuestionButton
-          buttonCount={options.length}
-          buttonOptions={options}
-          onSubmit={handleToggleSubmit}
-        />
+        {isNull ? (
+          <h1>Invalid poll id</h1>
+        ) : (
+          <>
+            <h1>{question}</h1>
+            <QuestionButton
+              buttonCount={options.length}
+              buttonOptions={options}
+              onSubmit={handleToggleSubmit}
+            />
+          </>
+        )}
       </div>
     </div>
   );
