@@ -4,13 +4,14 @@ import PercentageChoiceBar from "./Components/PercentageChoiceBar";
 import {
   fetchOptionVotePercentByPollId,
   fetchPollById,
-} from "./controllers/apiController";
+} from "./Controllers/apiController";
 import "./results.css";
 import "./App.css";
 
 const ResultPage = () => {
   const [optionsPercentage, setOptionsPercentage] = useState({});
   const { pollId } = useParams();
+  console.log(pollId);
 
   useEffect(() => {
     // Function to fetch option vote percentages by pollId
