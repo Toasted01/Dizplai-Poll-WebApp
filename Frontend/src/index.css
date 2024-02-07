@@ -7,7 +7,7 @@ body {
   font-size: 22px;
   color: white;
 
-  background-image: url('../public/background.jpg');
+  background-image: url('../background.jpg');
   background-repeat: no-repeat;
   background-position: center;
   background-attachment: fixed;
