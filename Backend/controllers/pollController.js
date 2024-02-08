@@ -23,6 +23,44 @@ const getPollsFromFile = () => {
 const pollController = {};
 
 /**
+ * Controller function to add a new poll to polls.json
+ * Used in Backend/scripts/addPoll.js
+ * @param {Object} newPoll 
+ */
+pollController.addNewPoll = (newPoll) => {
+  // Read the existing JSON file
+  fs.readFile(pollsFilePath, 'utf8', (err, data) => {
+      if (err) {
+          console.error('Error reading file:', err);
+          return;
+      }
+
+      // Parse JSON data
+      let polls = JSON.parse(data);
+
+      // Generate a new pollId by incrementing the last pollId
+      const newPollId = polls.length > 0 ? polls[polls.length - 1].pollId + 1 : 1;
+
+      // Assign the new pollId to the new poll object
+      newPoll.pollId = newPollId;
+
+      // Add the new poll to the existing array of polls
+      polls.push(newPoll);
+
+      // Write the updated JSON back to the file
+      fs.writeFile(pollsFilePath, JSON.stringify(polls, null, 2), (err) => {
+          if (err) {
+              console.error('Error writing file:', err);
+              return;
+          }
+          console.log('New poll added successfully.');
+          cachedPolls=polls;
+      });
+  });
+}
+
+
+/**
  * Controller function to get a poll in polls.json by it's pollId.
  * Used in front end to provide poll details to display
  * @param {*} req
