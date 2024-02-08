@@ -21,6 +21,8 @@ function App() {
       try {
         const data = await fetchPollById(pollId);
 
+        console.log(data);
+
         // Check if data is not null and has the required properties
         if (data && data.pollId && data.question && data.options) {
           setPollId(data.pollId);

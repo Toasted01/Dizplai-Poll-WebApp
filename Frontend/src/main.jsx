@@ -1,6 +1,5 @@
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
-import "./Styles/index.css";
 import "./Styles/App.css";
 import Poll from "./Pages/Poll";
 import ResultPage from "./Pages/ResultPage";

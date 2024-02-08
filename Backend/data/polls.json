@@ -93,28 +93,5 @@
         "optionText": "Collapsed in Sunbeams - Arlo Parks"
       }
     ]
-  },
-  {
-    "pollName": "Best singer",
-    "question": "Who is the best singer",
-    "options": [
-      {
-        "optionId": 1,
-        "optionText": "Justin timberlake"
-      },
-      {
-        "optionId": 2,
-        "optionText": "Michael Jackson"
-      },
-      {
-        "optionId": 3,
-        "optionText": "Frank sinatra"
-      },
-      {
-        "optionId": 4,
-        "optionText": "john doe"
-      }
-    ],
-    "pollId": 6
   }
 ]
