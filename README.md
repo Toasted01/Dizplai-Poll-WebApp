@@ -14,6 +14,7 @@ Poll taking web app created as part of technical interview project for Dizplai
 - [Tools Used](#tools-used)
 - [Testing](#testing)
 - [Points of interest](#points-of-interest)
+- [Upcoming Feature List](#upcoming-feature-list)
 
 ## Introduction
 
@@ -149,3 +150,16 @@ High detail unit/user testing seemed unnecessary due to simplicity in applicatio
 - Added file locking system to postVote so that data isn't lost when multiple users try to post at the same exact time.
 - Because it's not expected that the polls will change often i added the ability to cache the polls when they are first read. However if they are updated after the cache is made it won't show the change until the server restarts due to there being, right now, no good way to check when the file is updated without large scale refactors.
   - refactor would require either server side or in the json file adding a lastmodified timestamp to it and only allowing the server itself to edit the file.
+
+## Upcoming Feature List
+
+- Page to select poll
+  - Series of buttons (6 per page)
+  - Pagination
+- Ability to add/remove a poll
+  - implemented the add poll
+  - removing poll will mean a new caching mechanism is needed for immediate updates so that users dont vote on polls that dont exist anymore
+    - (Simple) decrease cache refresh time & add cleanup script for votes on removed polls
+    - (Complicated) implement cache invalidation or notification system
+- Write queue for writing votes to the votes.json file
+- system to limit ammount of votes sent per person/ip ideally 1 pp

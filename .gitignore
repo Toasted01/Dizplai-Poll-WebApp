@@ -3,7 +3,7 @@
 /Frontend/node_modules
 
 #Production
-/Frontend/build
+/Frontend/dist
 
 #Data
 /Backend/data/votes.json
